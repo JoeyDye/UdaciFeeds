@@ -92,9 +92,9 @@ $(function() {
 
       beforeEach(function(done) {
         loadFeed(0, function() {
-          entry1 = $('.feed .entry')[0].children[0].innerText;
+          entry1 = $('.feed .entry')[0].innerText;
           loadFeed(1, function() {
-            entry2 = $('.feed .entry')[1].children[0].innerText;
+            entry2 = $('.feed .entry')[1].innerText;
             done();
           });
         });
