@@ -38,12 +38,12 @@ $(function() {
       let body;
 
       beforeEach(function() {
-         body = document.querySelector('body');
+         body = $('body');
       });
 
         /** @description Tests that the menu element is hidden by default. */
         it('is hidden by default', () => {
-          expect(body.classList).toContain('menu-hidden');
+          expect(body.hasClass('menu-hidden')).toBeTruthy();
         });
 
 
@@ -51,14 +51,13 @@ $(function() {
           * when the menu icon is clicked.
           */
          it('changes visibility on click', () => {
-          const body = document.querySelector('body');
           const menuIcon = $('.menu-icon-link');
 
           menuIcon.trigger('click');
-          expect(body.classList).not.toContain('menu-hidden');
+          expect(body.hasClass('menu-hidden')).toBeFalsy();
 
           menuIcon.trigger('click');
-          expect(body.classList).toContain('menu-hidden');
+          expect(body.hasClass('menu-hidden')).toBeTruthy();
          });
     });
 
@@ -74,10 +73,10 @@ $(function() {
       * a single .entry element within the .feed container.
       */
       it('are defined', function(done) {
-        const feed = document.querySelector('.feed');
-        const entry = document.querySelector('.entry');
-        expect(feed.children[1].children)
-          .toContain(entry);
+        const entry = $('.entry');
+        const entries = $('.feed .entry');
+        expect(entries)
+          .toMatch(entry);
         done();
       });
     });
@@ -87,16 +86,21 @@ $(function() {
       /** @description Tests that when a new feed is loaded
         * by the loadFeed function that the content actually changes.
         */
+
+      let entry1;
+      let entry2;
+
       beforeEach(function(done) {
         loadFeed(0, function() {
-          loadFeed(1, done);
+          entry1 = $('.feed .entry')[0].children[0].innerText;
+          loadFeed(1, function() {
+            entry2 = $('.feed .entry')[1].children[0].innerText;
+            done();
+          });
         });
       });
 
       it('content changes', function(done) {
-        const entries = document.querySelectorAll('.entry');
-        const entry1 = entries[0].children[0].innerText;
-        const entry2 = entries[1].children[0].innerText;
         expect(entry1)
           .not.toEqual(entry2);
         done();
