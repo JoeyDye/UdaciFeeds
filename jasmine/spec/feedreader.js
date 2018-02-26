@@ -39,7 +39,7 @@ $(function() {
 
       beforeEach(function() {
          body = document.querySelector('body');
-      })
+      });
 
         /** @description Tests that the menu element is hidden by default. */
         it('is hidden by default', () => {
@@ -66,8 +66,8 @@ $(function() {
     describe('Initial entries', function() {
 
       beforeEach(function(done) {
-        loadFeed(0, done)
-      })
+        loadFeed(0, done);
+      });
 
       /** @description Tests that when the loadFeed
       * function is called and completes its work, there is at least
@@ -90,7 +90,7 @@ $(function() {
       beforeEach(function(done) {
         loadFeed(0, function() {
           loadFeed(1, done);
-        })
+        });
       });
 
       it('content changes', function(done) {
@@ -101,5 +101,5 @@ $(function() {
           .not.toEqual(entry2);
         done();
       });
-  })
+  });
 }());
